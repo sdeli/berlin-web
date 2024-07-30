@@ -4,7 +4,7 @@ import { WordDTO, WordMeta, WordSources } from './dtos';
 
 // Define a type for the slice state
 export interface Word {
-  ID: number;
+  ID: string;
   source?: WordSources;
   originalUrl?: string;
   description: string | null;
@@ -23,17 +23,17 @@ export const initialState: WordState = {
     {
       description: 'some description 113',
       title: 'some title',
-      ID: 11
+      ID: '11'
     },
     {
       description: 'some description 44',
       title: 'some title2',
-      ID: 12
+      ID: '12'
     },
     {
       description: 'some description 555',
       title: 'some title3',
-      ID: 13
+      ID: '13'
     },
     {
       description: 'some description  666',
