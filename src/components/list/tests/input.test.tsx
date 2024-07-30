@@ -1,5 +1,5 @@
 import React from 'react';
 
-import {input} from '../input';
+import {input} from '../list';
 
 describe('<input />', () => {});
