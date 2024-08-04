@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from './store'
-import { WordDTO, WordMeta, WordSources } from './dtos';
+import { WordDTO, WordMeta, WordSources } from '../dtos';
 
 // Define a type for the slice state
 export interface Word {
@@ -38,7 +38,7 @@ export const initialState: WordState = {
     {
       description: 'some description  666',
       title: 'some title4',
-      ID: 14
+      ID: '14'
     }
   ],
 }
@@ -55,7 +55,7 @@ export const wordSlice = createSlice({
         const word: Word = {
           description: wordDto.description,
           title: wordDto.title,
-          ID: parseInt(wordDto.ID),
+          ID: wordDto.ID,
         }
 
         return word;
@@ -67,6 +67,6 @@ export const wordSlice = createSlice({
 export const { replace } = wordSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectWords = (state: RootState) => state.words.words
+export const selectWords = (state: RootState) => state.words
 
 export default wordSlice.reducer

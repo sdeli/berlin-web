@@ -1,7 +1,7 @@
-import { WordDTO } from './dtos';
+import { WordDTO } from '../dtos';
 import axios, { AxiosResponse } from 'axios';
 import { useDispatch } from 'react-redux';
-import { wordSlice } from './wordSlice';
+import { wordSlice } from '../redux/wordSlice';
 import { AnyAction, ThunkAction } from '@reduxjs/toolkit';
 import { RootState } from '@reduxjs/toolkit/query';
 
@@ -12,7 +12,7 @@ async function fetchAllWords(filter?: string) {
   return words;
 }
 
-export const fetchWordsAction = (searchedWord?: string): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) => {
+export const fetchWords = (searchedWord?: string): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) => {
   try {
     const words = await fetchAllWords(searchedWord);
     dispatch(wordSlice.actions.replace(words))

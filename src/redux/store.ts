@@ -1,13 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { wordSlice, WordState } from './wordSlice';
+import authReducer, { AuthState } from './authSlice';  // Correctly import default export
+
 // ...
 
 interface AppState {
-  words: WordState;
+  auth: AuthState,
+  words: WordState,
 }
 
 const store = configureStore<AppState>({
   reducer: {
+    auth: authReducer,
     words: wordSlice.reducer,
   },
 });

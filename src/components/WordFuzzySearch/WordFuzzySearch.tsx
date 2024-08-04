@@ -1,26 +1,27 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectWords } from '../../wordSlice';
+import { selectWords } from '../../redux/wordSlice';
 import { useAppDispatch } from '../../hooks';
-import { fetchWordsAction } from '../../actions';
+import { fetchWords } from '../../api/word-api';
 
 export default function WordFuzzySearch() {
   const [inputValue, setInputValue] = useState('');
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchWordsAction())
+    dispatch(fetchWords())
   }, [])
 
   const words = useSelector(selectWords);
-  const wordsList = words.map((word) => {
+  
+  const wordsList = words.words.map((word) => {
     return <li key={word.ID}>{word.title} -- {word.description}</li>
   })
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setInputValue(event.target.value);
-    dispatch(fetchWordsAction(inputValue));
+    dispatch(fetchWords(inputValue));
   };
 
   // useEffect(() => {
