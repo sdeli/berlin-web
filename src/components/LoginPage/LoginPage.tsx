@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/authSlice';
 import { AppDispatch } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
+import { loginUserAction } from '../../redux/AuthActions';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate(); // Initialize navigate function
@@ -13,10 +13,7 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const data = await dispatch(loginUser({ username, password }));
-      console.log('register')
-      console.log(data);
-      navigate('/protected');
+      await dispatch(loginUserAction({ username, password }, navigate));
       // Redirect to home or another page upon successful login
     } catch (error) {
       console.error('Login failed:', error);

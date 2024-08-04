@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../redux/authSlice';
+import { loginUserAction, registerUserAction } from '../../redux/AuthActions';
+import { AppDispatch } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const data = await dispatch(registerUser({ username, password }));
-      console.log('register')
-      console.log(data);
-      // Redirect to login page or show success message
-    } catch (error) {
-      console.error('Registration failed:', error);
-    }
-  };
-
   const styles = {
     container: {
       display: 'flex',
@@ -63,6 +49,25 @@ const RegistrationPage: React.FC = () => {
       color: '#333',
     },
   };
+  const navigate = useNavigate(); // Initialize navigate function
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      console.log('password')
+      console.log({ username, password })
+      await dispatch(
+        registerUserAction({ username, password }, navigate)
+      );
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -91,7 +96,7 @@ const RegistrationPage: React.FC = () => {
             />
           </label>
           <br />
-          <button type="submit" style={styles.button}>Register</button>
+          <button type="submit" style={styles.button} onClick={handleRegister}>Register</button>
         </form>
       </div>
     </div>

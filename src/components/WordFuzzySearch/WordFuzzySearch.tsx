@@ -2,14 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWords } from '../../redux/wordSlice';
 import { useAppDispatch } from '../../hooks';
-import { fetchWords } from '../../api/word-api';
+import { fetchWordsAction } from '../../redux/wordActions';
 
 export default function WordFuzzySearch() {
   const [inputValue, setInputValue] = useState('');
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchWords())
+    dispatch(fetchWordsAction())
   }, [])
 
   const words = useSelector(selectWords);

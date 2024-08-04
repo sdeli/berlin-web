@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import WordFuzzySearch from '../WordFuzzySearch/WordFuzzySearch';
 import viteLogo from '../../assets/vite.svg'
 import reactLogo from '../../assets/react.svg'
+import { selectIsAuth } from '../../redux/authSlice';
+import { useSelector } from 'react-redux';
 
-// import styles from './MainPage.css';
-
-export interface MainPageProps {
-  prop?: string;
-}
-
-export function MainPage({prop = 'default value'}: MainPageProps) {
+export function MainPage() {
   const [count, setCount] = useState(0)
+  const isAuth = useSelector(selectIsAuth);
 
+  console.log('selectIsAuth MainPage')
+  console.log(isAuth)
   return (
     <>
       <div>

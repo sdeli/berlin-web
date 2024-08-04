@@ -1,23 +1,47 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { wordSlice, WordState } from './wordSlice';
-import authReducer, { AuthState } from './authSlice';  // Correctly import default export
-
-// ...
+import { authSlice, AuthState } from './authSlice';  // Correctly import default export
 
 interface AppState {
   auth: AuthState,
   words: WordState,
 }
 
+export const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem('reduxState');
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+
+export const saveState = (state: AppState) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('reduxState', serializedState);
+  } catch (err) {
+    // Ignore write errors
+  }
+};
+
+const persistedState = loadState();
+
 const store = configureStore<AppState>({
   reducer: {
-    auth: authReducer,
+    auth: authSlice.reducer,
     words: wordSlice.reducer,
   },
+  preloadedState: persistedState,
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
+store.subscribe(() => {
+  saveState(store.getState());
+});
+
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 export default store;

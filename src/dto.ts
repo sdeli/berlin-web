@@ -28,3 +28,28 @@ export interface WordDTO {
 
   meta: WordMeta;
 }
+
+export interface LoginDto {
+  username: string;
+  password: string;
+}
+
+export interface TokensDto {
+  access_token: string;
+  refresh_token: string;
+}
+
+export interface AccessTokenDto {
+  access_token: string;
+  refresh_token: string;
+}
+
+interface UserDataDto {
+  username: string;
+  id: string;
+}
+
+export interface LoggedInUserDto {
+  user: UserDataDto;
+  tokens: TokensDto;
+}

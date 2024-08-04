@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from './store'
-import { WordDTO, WordMeta, WordSources } from '../dtos';
+import { WordDTO, WordMeta, WordSources } from '../dto';
 
 // Define a type for the slice state
 export interface Word {
