@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectWords } from '../../redux/wordSlice';
+import styles from './WordFuzzySearch.module.css';
 import { useAppDispatch } from '../../hooks';
-import { fetchWordsAction } from '../../redux/wordActions';
+import { fetchWordsAction } from '../../actions';
+import { selectWords } from '../../redux/wordSlice';
 
 export default function WordFuzzySearch() {
   const [inputValue, setInputValue] = useState('');
@@ -15,13 +16,13 @@ export default function WordFuzzySearch() {
   const words = useSelector(selectWords);
   
   const wordsList = words.words.map((word) => {
-    return <li key={word.ID}>{word.title} -- {word.description}</li>
+    return <li key={word.ID}>{word.text} -- {word.source}</li>
   })
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     setInputValue(event.target.value);
-    dispatch(fetchWords(inputValue));
+    dispatch(fetchWordsAction(inputValue));
   };
 
   // useEffect(() => {
@@ -33,7 +34,7 @@ export default function WordFuzzySearch() {
         value={inputValue}
         onChange={handleInputChange} />
     <p>Variable value: {inputValue}</p>
-    <ul>
+    <ul className={styles['ul-basic']}>
       {wordsList}
     </ul>
   </div>

@@ -13,20 +13,9 @@ export enum WordSources {
 
 export interface WordDTO {
   ID: string;
-
   source: WordSources;
-
   originalUrl: string;
-
-  originalId: string | null;
-
-  description: string | null;
-
-  title: string | null;
-
-  discoveredAt: Date;
-
-  meta: WordMeta;
+  text: string;
 }
 
 export interface LoginDto {
@@ -52,4 +41,7 @@ interface UserDataDto {
 export interface LoggedInUserDto {
   user: UserDataDto;
   tokens: TokensDto;
+  text: string;
+  meta: WordMeta | null;
+  updatedAt: Date;
 }
